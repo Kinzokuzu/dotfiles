@@ -1,3 +1,3 @@
-## My dotfiles  
-# To-Do:  
+# My dotfiles  
+### To-Do:  
 symlink nvim directory
