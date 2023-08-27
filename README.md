@@ -1,1 +1,3 @@
-dotfiles for Kinzokuzu
+## My dotfiles  
+# To-Do:  
+symlink nvim directory
