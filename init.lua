@@ -125,7 +125,7 @@ require("toggleterm").setup({ direction = "float" })
 
 -- colorscheme options
 -- habamax
-vim.cmd "colorscheme habamax"
+--vim.cmd "colorscheme habamax"
 
 -- tokyonight
 -- require("tokyonight").setup({style = "night"})
