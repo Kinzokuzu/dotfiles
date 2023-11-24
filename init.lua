@@ -106,7 +106,7 @@ local plugins = {
     "lewis6991/gitsigns.nvim",
 
     -- color schemes
-    "folke/tokyonight.nvim",
+    -- "folke/tokyonight.nvim",
     -- "catppuccin/nvim"
 }
 
@@ -120,17 +120,20 @@ require("nvim-tree").setup()
 require("nvim-autopairs").setup()
 require("gitsigns").setup()
 
+-- colorscheme options
 -- habamax
 -- vim.cmd "colorscheme habamax"
+
 -- tokyonight
-require("tokyonight").setup({style = "night"})
-vim.cmd "colorscheme tokyonight"
+-- require("tokyonight").setup({style = "night"})
+-- vim.cmd "colorscheme tokyonight"
+
 -- catppuccin
 -- require("catppuccin").setup({style = "mocha"})
 -- vim.cmd "colorscheme catppuccin"
 
--- more complicated setups below
 
+-- beware, more complicated setups below
 
 -- lsp setup
 require("mason").setup()
