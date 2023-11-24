@@ -3,7 +3,6 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 -- built-in nvim options
-vim.cmd "colorscheme habamax"
 
 local options = {
   backup = false,                          -- creates a backup file
@@ -37,7 +36,7 @@ local options = {
   relativenumber = true,                  -- set relative numbered lines
   numberwidth = 2,                         -- set number column width to 2 {default 4}
 
-  signcolumn = "no",                      -- always show the sign column, otherwise it would shift the text each time
+  signcolumn = "yes",                      -- always show the sign column, otherwise it would shift the text each time
   wrap = true,                             -- display lines as one long line
   linebreak = true,                        -- companion to wrap, don't split words
   scrolloff = 8,                           -- minimal number of screen lines to keep above and below the cursor
@@ -103,7 +102,14 @@ local plugins = {
 	"rafamadriz/friendly-snippets",
 
 	"nvim-tree/nvim-tree.lua",
+
+    "lewis6991/gitsigns.nvim",
+
+    -- color schemes
+    "folke/tokyonight.nvim",
+    -- "catppuccin/nvim"
 }
+
 
 -- plugin options
 local opts = {}
@@ -112,7 +118,21 @@ local opts = {}
 require("lazy").setup(plugins, opts)
 require("nvim-tree").setup()
 require("nvim-autopairs").setup()
+require("gitsigns").setup()
 
+-- habamax
+-- vim.cmd "colorscheme habamax"
+-- tokyonight
+require("tokyonight").setup({style = "night"})
+vim.cmd "colorscheme tokyonight"
+-- catppuccin
+-- require("catppuccin").setup({style = "mocha"})
+-- vim.cmd "colorscheme catppuccin"
+
+-- more complicated setups below
+
+
+-- lsp setup
 require("mason").setup()
 require("mason-lspconfig").setup()
 require("mason-lspconfig").setup_handlers {
@@ -120,6 +140,32 @@ require("mason-lspconfig").setup_handlers {
         require("lspconfig")[server_name].setup {}
     end,
 }
+
+
+-- diagnostic options
+vim.diagnostic.config({
+    virtual_text = false,
+    float = {
+        focusable = false,
+        style = "minimal",
+        border = "rounded",
+        source = "always",
+        header = "",
+        prefix = "",
+    }
+})
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+    border = "rounded",
+})
+
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+    border = "rounded",
+})
+
+-- toggle diagnostic window, removes on line change
+vim.keymap.set('n', '<leader>d', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
+
 
 -- autocompletion and snippets setup
 local cmp_status_ok, cmp = pcall(require, "cmp")
