@@ -109,6 +109,9 @@ local plugins = {
 	"lewis6991/gitsigns.nvim", -- git indicators
 	"akinsho/toggleterm.nvim", -- better terminal inside nvim
 
+    -- GitHub Copilot
+    "github/copilot.vim",
+
     -- color schemes
     -- "folke/tokyonight.nvim",
     -- "catppuccin/nvim",
@@ -121,11 +124,17 @@ local opts = { colorscheme = "monokai-pro" } -- color scheme for installers
 -- setup/load plugins
 require("lazy").setup(plugins, opts)
 require("nvim-autopairs").setup()
-require("nvim-tree").setup()
+require("nvim-tree").setup({ hijack_cursor = true,
+                             tab = {
+                                 sync = {
+                                     open = true,
+                                     close = true }
+                             }
+                           })
 require("nvim-web-devicons").setup()
 require("gitsigns").setup()
 require("toggleterm").setup({ direction = "horizontal",
-                              open_mapping = [[<c-t>]],
+                              open_mapping = [[<C-\>]],
                               insert_mappings = true,
                               terminal_mappings = true })
 
@@ -141,11 +150,16 @@ require("toggleterm").setup({ direction = "horizontal",
 -- require("catppuccin").setup({style = "mocha"})
 -- vim.cmd "colorscheme catppuccin"
 
--- monakai-pro
+-- monokai-pro
     require("monokai-pro").setup({style = "pro"})
     vim.cmd "colorscheme monokai-pro"
 
 -- beware, more complicated setups below
+
+-- GitHub Copilot
+vim.cmd[[imap <silent><script><expr> <C-a> copilot#Accept("\<CR>")]]
+vim.g.copilot_no_tab_map = true
+
 
 -- lsp setup
 require("mason").setup()
