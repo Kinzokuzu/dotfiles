@@ -35,8 +35,8 @@ local options = {
     relativenumber = true,                  -- set relative numbered lines
     numberwidth = 2,                         -- set number column width to 2 {default 4}
 
-    foldmethod = "indent",                   -- set folding to follow indent
-    foldnestmax = 1,                         -- set fold nest to only 1 layer
+    -- foldmethod = "indent",                   -- set folding to follow indent
+    -- foldnestmax = 1,                         -- set fold nest to only 1 layer
     signcolumn = "yes",                      -- always show the sign column, otherwise it would shift the text each time
     wrap = true,                             -- display lines as one long line
     linebreak = true,                        -- companion to wrap, don't split words
@@ -78,14 +78,14 @@ vim.g.maplocalleader = " "
 
 -- key remaps go here
 vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<cr>") -- toggle Nvim-tree
-vim.keymap.set("n", "<leader>t", ":ToggleTerm<cr>") -- toggle Nvim-tree
+-- vim.keymap.set("n", "<leader>t", ":ToggleTerm<cr>")     -- toggle terminal
 
 -- plugins declared here
 local plugins = {
 	"nvim-treesitter/nvim-treesitter",
 	"windwp/nvim-autopairs",
 
-    -- LSP plugins
+	-- LSP plugins
 	"williamboman/mason.nvim",
 	"williamboman/mason-lspconfig.nvim",
 	"neovim/nvim-lspconfig",
@@ -103,25 +103,31 @@ local plugins = {
 	"saadparwaiz1/cmp_luasnip",
 	"rafamadriz/friendly-snippets",
 
-    -- other QOL plugins
+	-- other QOL plugins
 	"nvim-tree/nvim-tree.lua", -- file tree
-    "lewis6991/gitsigns.nvim", -- git indicators
-    "akinsho/toggleterm.nvim", -- better terminal inside nvim
+    "nvim-tree/nvim-web-devicons",
+	"lewis6991/gitsigns.nvim", -- git indicators
+	"akinsho/toggleterm.nvim", -- better terminal inside nvim
 
     -- color schemes
     -- "folke/tokyonight.nvim",
-    -- "catppuccin/nvim"
+    -- "catppuccin/nvim",
+    "loctvl842/monokai-pro.nvim"
 }
 
 -- plugin options
-local opts = {}
+local opts = { colorscheme = "monokai-pro" } -- color scheme for installers
 
 -- setup/load plugins
 require("lazy").setup(plugins, opts)
 require("nvim-autopairs").setup()
 require("nvim-tree").setup()
+require("nvim-web-devicons").setup()
 require("gitsigns").setup()
-require("toggleterm").setup({ direction = "float" })
+require("toggleterm").setup({ direction = "horizontal",
+                              open_mapping = [[<c-t>]],
+                              insert_mappings = true,
+                              terminal_mappings = true })
 
 -- colorscheme options
 -- habamax
@@ -134,6 +140,10 @@ require("toggleterm").setup({ direction = "float" })
 -- catppuccin
 -- require("catppuccin").setup({style = "mocha"})
 -- vim.cmd "colorscheme catppuccin"
+
+-- monakai-pro
+    require("monokai-pro").setup({style = "pro"})
+    vim.cmd "colorscheme monokai-pro"
 
 -- beware, more complicated setups below
 
