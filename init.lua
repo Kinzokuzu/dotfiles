@@ -22,7 +22,7 @@ local options = {
     splitbelow = true,                       -- force all horizontal splits to go below current window
     splitright = true,                       -- force all vertical splits to go to the right of current window
     swapfile = false,                        -- creates a swapfile
-    termguicolors = false,                    -- set term gui colors (most terminals support this)
+    termguicolors = true,                    -- set term gui colors (most terminals support this)
     timeoutlen = 300,                        -- time to wait for a mapped sequence to complete (in milliseconds)
     undofile = true,                         -- enable persistent undo
     updatetime = 300,                        -- faster completion (4000ms default)
@@ -105,9 +105,10 @@ local plugins = {
 
 	-- other QOL plugins
 	"nvim-tree/nvim-tree.lua", -- file tree
-    "nvim-tree/nvim-web-devicons",
+    "nvim-tree/nvim-web-devicons", -- icons for file tree
 	"lewis6991/gitsigns.nvim", -- git indicators
 	"akinsho/toggleterm.nvim", -- better terminal inside nvim
+    "akinsho/bufferline.nvim", -- better buffer line
 
     -- GitHub Copilot
     "github/copilot.vim",
@@ -115,32 +116,15 @@ local plugins = {
     -- color schemes
     -- "folke/tokyonight.nvim",
     -- "catppuccin/nvim",
-    "loctvl842/monokai-pro.nvim"
+    -- "loctvl842/monokai-pro.nvim"
 }
 
 -- plugin options
-local opts = { colorscheme = "monokai-pro" } -- color scheme for installers
-
--- setup/load plugins
-require("lazy").setup(plugins, opts)
-require("nvim-autopairs").setup()
-require("nvim-tree").setup({ hijack_cursor = true,
-                             tab = {
-                                 sync = {
-                                     open = true,
-                                     close = true }
-                             }
-                           })
-require("nvim-web-devicons").setup()
-require("gitsigns").setup()
-require("toggleterm").setup({ direction = "horizontal",
-                              open_mapping = [[<C-\>]],
-                              insert_mappings = true,
-                              terminal_mappings = true })
+local opts = { colorscheme = "habamax" } -- color scheme for installers
 
 -- colorscheme options
 -- habamax
---vim.cmd "colorscheme habamax"
+vim.cmd "colorscheme habamax"
 
 -- tokyonight
 -- require("tokyonight").setup({style = "night"})
@@ -151,8 +135,42 @@ require("toggleterm").setup({ direction = "horizontal",
 -- vim.cmd "colorscheme catppuccin"
 
 -- monokai-pro
-    require("monokai-pro").setup({style = "pro"})
-    vim.cmd "colorscheme monokai-pro"
+-- require("monokai-pro").setup({style = "pro"})
+-- vim.cmd "colorscheme monokai-pro"
+
+-- setup/load plugins
+require("lazy").setup(plugins, opts)
+require("nvim-autopairs").setup()
+require("nvim-web-devicons").setup()
+require("gitsigns").setup()
+require("bufferline").setup({ options = {
+                                  mode = "tabs",
+                                  separator_style = "slant",
+                                  -- dont show tabs above file explorer
+                                  offsets = {
+                                      { filetype = "NvimTree",
+                                    text = "File Explorer",
+                                    highlight = "Directory",
+                                    separator = "" }},
+                                  -- show error/warning count in tab
+                                  diagnostics = "nvim_lsp",
+                                  diagnostics_indicator = function(count, _, _, _)
+                                      if count > 9 then
+                                          return "9+"
+                                      end
+                                      return tostring(count)
+                                  end }})
+
+require("nvim-tree").setup({ hijack_cursor = true,
+                             diagnostics = { enable = true },
+                             tab = { sync = {
+                                         open = true,
+                                         close = true }}})
+
+require("toggleterm").setup({ direction = "horizontal",
+                              open_mapping = [[<C-\>]],
+                              insert_mappings = true,
+                              terminal_mappings = true })
 
 -- beware, more complicated setups below
 
