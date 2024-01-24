@@ -119,8 +119,9 @@ local plugins = {
     -- "loctvl842/monokai-pro.nvim"
 }
 
--- plugin options
+-- setup/load plugins
 local opts = { colorscheme = "habamax" } -- color scheme for installers
+require("lazy").setup(plugins, opts)
 
 -- colorscheme options
 -- habamax
@@ -138,8 +139,6 @@ vim.cmd "colorscheme habamax"
 -- require("monokai-pro").setup({style = "pro"})
 -- vim.cmd "colorscheme monokai-pro"
 
--- setup/load plugins
-require("lazy").setup(plugins, opts)
 require("nvim-autopairs").setup()
 require("nvim-web-devicons").setup()
 require("gitsigns").setup()
@@ -175,7 +174,7 @@ require("toggleterm").setup({ direction = "horizontal",
 -- beware, more complicated setups below
 
 -- GitHub Copilot
-vim.cmd[[imap <silent><script><expr> <C-a> copilot#Accept("\<CR>")]]
+vim.cmd[[imap <silent><script><expr> <C-c> copilot#Accept("\<CR>")]]
 vim.g.copilot_no_tab_map = true
 
 
