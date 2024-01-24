@@ -7,3 +7,7 @@ function parse_git_branch {
 }
 
 export PS1="\u@\h:\W\$(parse_git_branch) $ "
+
+# set neovim as default editor
+export VISUAL=nvim
+export EDITOR="$VISUAL"
