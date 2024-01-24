@@ -175,7 +175,7 @@ require("toggleterm").setup({ direction = "horizontal",
 -- beware, more complicated setups below
 
 -- GitHub Copilot
-vim.cmd[[imap <silent><script><expr> <C-a> copilot#Accept("\<CR>")]]
+vim.cmd[[imap <silent><script><expr> <C-c> copilot#Accept("\<CR>")]]
 vim.g.copilot_no_tab_map = true
 
 
