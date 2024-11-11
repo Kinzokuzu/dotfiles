@@ -3,6 +3,15 @@ return {
 		"williamboman/mason.nvim",
 		config = function()
 			require("mason").setup()
+
+			vim.keymap.set("n", "<leader>d", "<cmd>lua vim.diagnostic.open_float()<CR>", { noremap = true, silent = true })
+
+			vim.diagnostic.config({
+				virtual_text = false,
+				float = {
+					focusable = false,
+				}
+			})
 		end
 	},
 	{
