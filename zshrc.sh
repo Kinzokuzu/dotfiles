@@ -7,10 +7,19 @@ autoload -U colors && colors
 
 # Define colors using hex values for true-color terminals
 typeset -A colors
+# colors=(
+#   red '%F{#ff6188}'
+#   yellow '%F{#ffd866}'
+#   purple '%F{#ab9df2}'
+#   reset '%f'  # Resets to default color
+# )
+
 colors=(
-  red '%F{#ff6188}'
-  yellow '%F{#ffd866}'
-  purple '%F{#ab9df2}'
+  red '%F{#e86671}'
+  yellow '%F{#e5c07b}'
+  purple '%F{#c678dd}'
+	blue '%F{#61afef}'
+	green '%F{#98c379}'
   reset '%f'  # Resets to default color
 )
 
@@ -22,7 +31,7 @@ function parse_git_branch() {
 setopt PROMPT_SUBST
 
 # [current directory] ❯
-export PROMPT="%2~${colors[purple]}\$(parse_git_branch)${colors[reset]} ${colors[red]}❯ ${colors[reset]}"
+export PROMPT="%2~${colors[green]}\$(parse_git_branch)${colors[reset]} ${colors[blue]}❯ ${colors[reset]}"
 # No color
 # export PROMPT='%2~$(parse_git_branch) ❯ '
 # End prompt customization
@@ -31,6 +40,20 @@ export PROMPT="%2~${colors[purple]}\$(parse_git_branch)${colors[reset]} ${colors
 export EDITOR=nvim
 export VISUAL=nvim
 # End editor
+
+# Start aliases
+alias home=cd ~
+alias viewpage="live-server --browser=\"Google Chrome\""
+
+# End aliases
+
+# zsh-vi-mode
+function zvm_config() {
+	# ZVM_LINE_INIT_MODE=$ZVM_MODE_NORMAL
+}
+
+source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

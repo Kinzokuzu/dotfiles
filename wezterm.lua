@@ -11,6 +11,9 @@ config.font_size = 14.0
 config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = false
 
+config.color_scheme = 'OneDark (base16)'
+
+--[[
 config.colors = {
    foreground = "#fcfcfa",  -- text
    background = "#2d2a2e",  -- background
@@ -58,6 +61,7 @@ config.colors = {
    --    },
    -- },
 }
+--]]
 
 -- and finally, return the configuration to wezterm
 return config
