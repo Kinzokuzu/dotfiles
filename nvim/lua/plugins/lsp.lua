@@ -1,31 +1,18 @@
-return {
-	{
-		"williamboman/mason.nvim",
-		config = function()
-			require("mason").setup()
+vim.pack.add({'https://github.com/neovim/nvim-lspconfig'})
+vim.lsp.enable({'bashls', 'lua_ls', 'pyright', 'ts_ls'})
 
-			vim.keymap.set("n", "<leader>d", "<cmd>lua vim.diagnostic.open_float()<CR>", { noremap = true, silent = true })
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(ev)
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_completion) then
+            vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'fuzzy', 'popup' }
+            vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+        end
+    end
+})
 
-			vim.diagnostic.config({
-				virtual_text = false,
-				float = {
-					focusable = false,
-				}
-			})
-		end
-	},
-	{
-		"williamboman/mason-lspconfig.nvim",
-		config = function()
-			require("mason-lspconfig").setup()
-			require("mason-lspconfig").setup_handlers({
-				function(server_name)
-					require("lspconfig")[server_name].setup({})
-				end
-			})
-		end
-	},
-	{
-		"neovim/nvim-lspconfig"
-	}
-}
+vim.diagnostic.config({
+    virtual_text = {
+        current_line = true
+    }
+})

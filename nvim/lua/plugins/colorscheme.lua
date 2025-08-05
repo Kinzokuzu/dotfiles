@@ -1,9 +1,2 @@
-return {
-	{
-		"loctvl842/monokai-pro.nvim",
-		config = function()
-			require("monokai-pro").setup({ style = "pro" })
-			vim.cmd.colorscheme "monokai-pro"
-		end
-	}
-}
+vim.pack.add({'https://github.com/joshdick/onedark.vim'})
+vim.cmd('colorscheme onedark')
