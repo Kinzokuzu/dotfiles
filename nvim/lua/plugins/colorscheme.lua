@@ -1,2 +1,3 @@
-vim.pack.add({'https://github.com/joshdick/onedark.vim'})
-vim.cmd('colorscheme onedark')
+vim.pack.add({'https://github.com/scottmckendry/cyberdream.nvim'})
+vim.cmd('colorscheme cyberdream')
+
